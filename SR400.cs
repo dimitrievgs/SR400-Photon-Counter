@@ -64,18 +64,30 @@ namespace SR_400
         {
             double ch1 = 0d, ch2 = 0d, pol = 0d;
             WaitForAccess();
-            if (OpenConnection())
+            try
             {
-                ch1 = 0d;
-                ch2 = 0d;
-                for (int k = 0; k < accumNr; k++)
+                if (OpenConnection())
                 {
-                    var answer = CountAB(accumTimeSec);
-                    ch1 += answer.Ch1;
-                    ch2 += answer.Ch2;
+                    ch1 = 0d;
+                    ch2 = 0d;
+                    for (int k = 0; k < accumNr; k++)
+                    {
+                        var answer = CountAB(accumTimeSec);
+                        if (answer.Success)
+                        {
+                            ch1 += answer.Ch1;
+                            ch2 += answer.Ch2;
+                        }
+                        else
+                            break;
+                    }
+                    pol = CalculatePolarization(ch1, ch2);
+                    CloseConnection();
                 }
-                pol = CalculatePolarization(ch1, ch2);
-                CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
             OpenAccess();
             return (ch1, ch2, pol);
@@ -89,8 +101,8 @@ namespace SR_400
         /// <param name="D_level"></param>
         public void SpecifySettings()
         {
-            SetCountMode(0); 
-            SetNumberOfPeriodsInScan(1); 
+            SetCountMode(0);
+            SetNumberOfPeriodsInScan(1);
             //SetCounterPreSet(2, accumTime * 10000000.0); 
             //"for chanell A setup";
             SetCounterInput(0, 1);
@@ -111,19 +123,27 @@ namespace SR_400
             Thread.Sleep(2);
         }
 
-        public (double Ch1, double Ch2, double Pol) CountAB(double accumTimeSec)
+        public (bool Success, double Ch1, double Ch2, double Pol) CountAB(double accumTimeSec)
         {
             double ch1 = 0d, ch2 = 0d;
             List<double> mSDAccumTimeValues = GetMSDArray(accumTimeSec);
-            foreach(double value in mSDAccumTimeValues)
+            foreach (double value in mSDAccumTimeValues)
             {
-                StartCountingAndWait(value);
-                var answer = ReadCountsAB();
-                ch1 += answer.Ch1;
-                ch2 += answer.Ch2;
+                bool success = StartCountingAndWait(value);
+                if (success)
+                {
+                    var answer = ReadCountsAB();
+                    ch1 += answer.Ch1;
+                    ch2 += answer.Ch2;
+                }
+                else
+                {
+                    MessageBox.Show("Device is not accessible.");
+                    return (false, 0, 0, 0);
+                }
             }
             double pol = CalculatePolarization(ch1, ch2);
-            return (ch1, ch2, pol);
+            return (true, ch1, ch2, pol);
         }
 
         private double CalculatePolarization(double ch1, double ch2)
@@ -157,15 +177,21 @@ namespace SR_400
         /// Start Counting based on most significant digit of set accumulation Time.
         /// </summary>
         /// <param name="accumTimeSec"></param>
-        private void StartCountingAndWait(double accumTimeSec)
+        private bool StartCountingAndWait(double accumTimeSec)
         {
-            SetCounterPreSet(2, accumTimeSec * 10000000.0); 
+            SetCounterPreSet(2, accumTimeSec * 10000000.0);
             //var result = ReadCounterPreSet(2);
             ResetCounter();
-            StartCount(); 
+            StartCount();
             Thread.Sleep((int)(accumTimeSec * 1000.0));
-            while (ReadSpecificPrimaryStatusBit(1).PrimaryStatusBit != 1) //check Data Ready
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            int dataReadyStatusBit = 0;
+            while ((dataReadyStatusBit = ReadSpecificPrimaryStatusBit(1).PrimaryStatusBit) != 1
+                && stopwatch.Elapsed.TotalMilliseconds <= ReadTimeout) //check Data Ready
                 Thread.Sleep(5);
+            stopwatch.Stop();
+            return dataReadyStatusBit == 1;
         }
 
         private (double Ch1, double Ch2) ReadCountsAB()

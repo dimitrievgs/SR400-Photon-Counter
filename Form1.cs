@@ -16,14 +16,13 @@ namespace SR_400
         public Form1()
         {
             InitializeComponent();
-            InitDevice();
         }
 
         SR400 sr400;
 
         public void InitDevice()
         {
-            sr400 = new SR400("COM1");
+            sr400 = new SR400("COM3");
             numAccumTime.DecimalPlaces = SR400.TimeDecPlaces;
             numAccumTime.Minimum = (decimal)Math.Pow(10, -SR400.TimeDecPlaces);
         }
@@ -35,23 +34,31 @@ namespace SR_400
 
         private void bMeasure_Click(object sender, EventArgs e)
         {
-            Task.Run(() =>
+            if (sr400 != null)
             {
-                this.Invoke((MethodInvoker)delegate ()
+                Task.Run(() =>
                 {
-                    labStatus.ForeColor = Color.Red;
-                    labStatus.Text = "Reading";
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        labStatus.ForeColor = Color.Red;
+                        labStatus.Text = "Reading";
+                    });
+                    var result = sr400.Measure((double)numAccumTime.Value);
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        numCh1.Value = (decimal)result.Ch1;
+                        numCh2.Value = (decimal)result.Ch2;
+                        numPol.Value = (decimal)result.Pol;
+                        labStatus.ForeColor = Color.Green;
+                        labStatus.Text = "OK";
+                    });
                 });
-                var result = sr400.Measure((double)numAccumTime.Value);
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    numCh1.Value = (decimal)result.Ch1;
-                    numCh2.Value = (decimal)result.Ch2;
-                    numPol.Value = (decimal)result.Pol;
-                    labStatus.ForeColor = Color.Green;
-                    labStatus.Text = "OK";
-                });
-            });
+            }
+        }
+
+        private void bInit_Click(object sender, EventArgs e)
+        {
+            InitDevice();
         }
     }
 }
