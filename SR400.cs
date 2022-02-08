@@ -20,7 +20,17 @@ namespace SR_400
         /// <summary>
         /// Discriminator SR400: discrimination level in volts 
         /// </summary>
-        private static double _discriminatorLevel = 0.087; //-12e-3;
+        private double _discriminatorLevelV; //-12e-3;
+        private double _quartzFrequency_kHz;
+        private double _quartzPeriod_us;
+        /// <summary>
+        /// Gate width window
+        /// </summary>
+        private double _strobeWidth_us;
+        /// <summary>
+        /// Shift of Ch1 and Ch2 counting as a whole
+        /// </summary>
+        private double _phaseWidth_us = 0d;
 
         //==============================================
         // Initialization
@@ -30,7 +40,7 @@ namespace SR_400
         /// Without DtrEnable it can't read.
         /// </summary>
         /// <param name="pName"></param>
-        public SR400(string pName) :
+        public SR400(string pName, double discrLevel_mV, double quartzFrequency_kHz, double strobeWidth_perc) :
             base(null, null, pName, 9600, System.IO.Ports.Parity.None,
                 8, System.IO.Ports.StopBits.Two, System.IO.Ports.Handshake.None,
                 2000, 2000, 0, false, true)
@@ -38,6 +48,11 @@ namespace SR_400
             // 'SETUP COM1: PORT TO 9600 BAUD, NO PARITY, 8 DATA BITS, 2 STOP BITS,
             // 'IGNORE CTS (CLEAR TO SEND), DSR (DATA SET READY),
             // 'AND CD (CARRIER DETECT)
+            _discriminatorLevelV = discrLevel_mV / 1_000.0;
+            _quartzFrequency_kHz = quartzFrequency_kHz;
+            _quartzPeriod_us = 1d / 1_000d / _quartzFrequency_kHz;
+            _strobeWidth_us = _quartzPeriod_us * strobeWidth_perc / 100d;
+            _phaseWidth_us = 0d;
             Initialize();
         }
 
@@ -106,19 +121,19 @@ namespace SR_400
             //SetCounterPreSet(2, accumTime * 10000000.0); 
             //"for chanell A setup";
             SetCounterInput(0, 1);
-            SetGateDelay(0, 0d); //default is 0
-            SetGateMode(0, 0); //When there is a normal signal for the Gate, it will need to be specified 
-            SetGateWidth(0, 4E-6);
+            SetGateDelay(0, 0d + _phaseWidth_us); //default is 0
+            SetGateMode(0, 1); //When there is a normal signal for the Gate, it will need to be specified 
+            SetGateWidth(0, _strobeWidth_us); //4E-6
             SetDiscriminatorSlope(0, 1); //fall
-            SetDiscriminatorLevel(0, _discriminatorLevel);
+            SetDiscriminatorLevel(0, _discriminatorLevelV);
             // GateWidth A = 4E-6 sec
             //"for chanell B setup";
-            SetCounterInput(1, 2);
-            SetGateDelay(1, 0d); //default is 0 //1, 12E-6
-            SetGateMode(1, 0); //When there is a normal signal for the Gate, it will need to be specified 
-            SetGateWidth(1, 4E-6);
+            SetCounterInput(1, 1);
+            SetGateDelay(1, _quartzPeriod_us / 2d + _phaseWidth_us); //default is 0 //1, 12E-6
+            SetGateMode(1, 1); //When there is a normal signal for the Gate, it will need to be specified 
+            SetGateWidth(1, _strobeWidth_us); //4E-6
             SetDiscriminatorSlope(1, 1); //fall
-            SetDiscriminatorLevel(1, _discriminatorLevel);
+            SetDiscriminatorLevel(1, _discriminatorLevelV);
             // GateWidth B = 4E-6 sec
             Thread.Sleep(2);
         }
@@ -510,11 +525,11 @@ namespace SR_400
         /// DL i, v Set DISC i LVL to -0.3000 &lt;= v &lt;= 0.3000 V.
         /// </summary>
         /// <param name="discriminatorIndex"></param>
-        /// <param name="discLevel"></param>
+        /// <param name="discLevel_V"></param>
         /// <returns></returns>
-        private bool SetDiscriminatorLevel(int discriminatorIndex, double discLevel)
+        private bool SetDiscriminatorLevel(int discriminatorIndex, double discLevel_V)
         {
-            return SendCommand("DL", discriminatorIndex, discLevel).Success;
+            return SendCommand("DL", discriminatorIndex, discLevel_V).Success;
         }
 
         /// <summary>

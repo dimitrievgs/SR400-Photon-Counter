@@ -39,19 +39,28 @@ namespace SR_400
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.numAccumTime = new System.Windows.Forms.NumericUpDown();
+            this.numAccumTime_sec = new System.Windows.Forms.NumericUpDown();
             this.labStatus = new System.Windows.Forms.Label();
             this.bInit = new System.Windows.Forms.Button();
             this.tbPortName = new System.Windows.Forms.TextBox();
+            this.numDiscrLevel_mV = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numQuartzFrequency_kHz = new System.Windows.Forms.NumericUpDown();
+            this.lbStrobeWidth = new System.Windows.Forms.Label();
+            this.numStrobeWidth_perc = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCh2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAccumTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAccumTime_sec)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDiscrLevel_mV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numQuartzFrequency_kHz)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numStrobeWidth_perc)).BeginInit();
             this.SuspendLayout();
             // 
             // bSend
             // 
-            this.bSend.Location = new System.Drawing.Point(62, 61);
+            this.bSend.Location = new System.Drawing.Point(12, 42);
             this.bSend.Name = "bSend";
             this.bSend.Size = new System.Drawing.Size(75, 23);
             this.bSend.TabIndex = 0;
@@ -61,14 +70,14 @@ namespace SR_400
             // 
             // tbCommand
             // 
-            this.tbCommand.Location = new System.Drawing.Point(95, 90);
+            this.tbCommand.Location = new System.Drawing.Point(45, 71);
             this.tbCommand.Name = "tbCommand";
             this.tbCommand.Size = new System.Drawing.Size(221, 20);
             this.tbCommand.TabIndex = 2;
             // 
             // bMeasure
             // 
-            this.bMeasure.Location = new System.Drawing.Point(62, 153);
+            this.bMeasure.Location = new System.Drawing.Point(12, 134);
             this.bMeasure.Name = "bMeasure";
             this.bMeasure.Size = new System.Drawing.Size(75, 23);
             this.bMeasure.TabIndex = 0;
@@ -83,7 +92,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numCh1.Location = new System.Drawing.Point(62, 183);
+            this.numCh1.Location = new System.Drawing.Point(12, 275);
             this.numCh1.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -105,7 +114,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numCh2.Location = new System.Drawing.Point(62, 209);
+            this.numCh2.Location = new System.Drawing.Point(98, 275);
             this.numCh2.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -128,7 +137,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numPol.Location = new System.Drawing.Point(62, 235);
+            this.numPol.Location = new System.Drawing.Point(185, 275);
             this.numPol.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -146,7 +155,7 @@ namespace SR_400
             // lbResult
             // 
             this.lbResult.AutoSize = true;
-            this.lbResult.Location = new System.Drawing.Point(66, 93);
+            this.lbResult.Location = new System.Drawing.Point(16, 74);
             this.lbResult.Name = "lbResult";
             this.lbResult.Size = new System.Drawing.Size(16, 13);
             this.lbResult.TabIndex = 4;
@@ -154,7 +163,7 @@ namespace SR_400
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(95, 116);
+            this.textBox1.Location = new System.Drawing.Point(45, 97);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(221, 20);
             this.textBox1.TabIndex = 1;
@@ -162,7 +171,7 @@ namespace SR_400
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(66, 119);
+            this.label1.Location = new System.Drawing.Point(16, 100);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(24, 13);
             this.label1.TabIndex = 4;
@@ -171,35 +180,35 @@ namespace SR_400
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(143, 158);
+            this.label2.Location = new System.Drawing.Point(9, 168);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Time, sec";
+            this.label2.Text = "Acc time, sec";
             // 
-            // numAccumTime
+            // numAccumTime_sec
             // 
-            this.numAccumTime.DecimalPlaces = 1;
-            this.numAccumTime.Increment = new decimal(new int[] {
+            this.numAccumTime_sec.DecimalPlaces = 1;
+            this.numAccumTime_sec.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.numAccumTime.Location = new System.Drawing.Point(203, 155);
-            this.numAccumTime.Maximum = new decimal(new int[] {
+            this.numAccumTime_sec.Location = new System.Drawing.Point(12, 184);
+            this.numAccumTime_sec.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numAccumTime.Minimum = new decimal(new int[] {
+            this.numAccumTime_sec.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.numAccumTime.Name = "numAccumTime";
-            this.numAccumTime.Size = new System.Drawing.Size(74, 20);
-            this.numAccumTime.TabIndex = 3;
-            this.numAccumTime.Value = new decimal(new int[] {
+            this.numAccumTime_sec.Name = "numAccumTime_sec";
+            this.numAccumTime_sec.Size = new System.Drawing.Size(74, 20);
+            this.numAccumTime_sec.TabIndex = 3;
+            this.numAccumTime_sec.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -208,7 +217,7 @@ namespace SR_400
             // labStatus
             // 
             this.labStatus.AutoSize = true;
-            this.labStatus.Location = new System.Drawing.Point(145, 187);
+            this.labStatus.Location = new System.Drawing.Point(11, 255);
             this.labStatus.Name = "labStatus";
             this.labStatus.Size = new System.Drawing.Size(16, 13);
             this.labStatus.TabIndex = 4;
@@ -216,7 +225,7 @@ namespace SR_400
             // 
             // bInit
             // 
-            this.bInit.Location = new System.Drawing.Point(62, 32);
+            this.bInit.Location = new System.Drawing.Point(12, 13);
             this.bInit.Name = "bInit";
             this.bInit.Size = new System.Drawing.Size(75, 23);
             this.bInit.TabIndex = 0;
@@ -226,24 +235,141 @@ namespace SR_400
             // 
             // tbPortName
             // 
-            this.tbPortName.Location = new System.Drawing.Point(148, 33);
+            this.tbPortName.Location = new System.Drawing.Point(98, 14);
             this.tbPortName.Name = "tbPortName";
             this.tbPortName.Size = new System.Drawing.Size(57, 20);
             this.tbPortName.TabIndex = 2;
             this.tbPortName.Text = "COM3";
             // 
+            // numDiscrLevel_mV
+            // 
+            this.numDiscrLevel_mV.DecimalPlaces = 1;
+            this.numDiscrLevel_mV.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numDiscrLevel_mV.Location = new System.Drawing.Point(98, 184);
+            this.numDiscrLevel_mV.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.numDiscrLevel_mV.Minimum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            -2147483648});
+            this.numDiscrLevel_mV.Name = "numDiscrLevel_mV";
+            this.numDiscrLevel_mV.Size = new System.Drawing.Size(74, 20);
+            this.numDiscrLevel_mV.TabIndex = 3;
+            this.numDiscrLevel_mV.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(95, 168);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Signal discr level, mV";
+            // 
+            // numQuartzFrequency_kHz
+            // 
+            this.numQuartzFrequency_kHz.DecimalPlaces = 3;
+            this.numQuartzFrequency_kHz.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numQuartzFrequency_kHz.Location = new System.Drawing.Point(12, 226);
+            this.numQuartzFrequency_kHz.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numQuartzFrequency_kHz.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numQuartzFrequency_kHz.Name = "numQuartzFrequency_kHz";
+            this.numQuartzFrequency_kHz.Size = new System.Drawing.Size(74, 20);
+            this.numQuartzFrequency_kHz.TabIndex = 3;
+            this.numQuartzFrequency_kHz.Value = new decimal(new int[] {
+            50028,
+            0,
+            0,
+            196608});
+            // 
+            // lbStrobeWidth
+            // 
+            this.lbStrobeWidth.AutoSize = true;
+            this.lbStrobeWidth.Location = new System.Drawing.Point(9, 210);
+            this.lbStrobeWidth.Name = "lbStrobeWidth";
+            this.lbStrobeWidth.Size = new System.Drawing.Size(84, 13);
+            this.lbStrobeWidth.TabIndex = 4;
+            this.lbStrobeWidth.Text = "Quartz freq, kHz";
+            // 
+            // numStrobeWidth_perc
+            // 
+            this.numStrobeWidth_perc.DecimalPlaces = 3;
+            this.numStrobeWidth_perc.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numStrobeWidth_perc.Location = new System.Drawing.Point(98, 226);
+            this.numStrobeWidth_perc.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numStrobeWidth_perc.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numStrobeWidth_perc.Name = "numStrobeWidth_perc";
+            this.numStrobeWidth_perc.Size = new System.Drawing.Size(74, 20);
+            this.numStrobeWidth_perc.TabIndex = 3;
+            this.numStrobeWidth_perc.Value = new decimal(new int[] {
+            34217,
+            0,
+            0,
+            196608});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(95, 210);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(116, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Ch A/B strobe width, %";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 303);
+            this.ClientSize = new System.Drawing.Size(280, 307);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbStrobeWidth);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labStatus);
             this.Controls.Add(this.lbResult);
             this.Controls.Add(this.numPol);
             this.Controls.Add(this.numCh2);
-            this.Controls.Add(this.numAccumTime);
+            this.Controls.Add(this.numStrobeWidth_perc);
+            this.Controls.Add(this.numQuartzFrequency_kHz);
+            this.Controls.Add(this.numDiscrLevel_mV);
+            this.Controls.Add(this.numAccumTime_sec);
             this.Controls.Add(this.numCh1);
             this.Controls.Add(this.tbPortName);
             this.Controls.Add(this.tbCommand);
@@ -256,7 +382,10 @@ namespace SR_400
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCh2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPol)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAccumTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAccumTime_sec)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDiscrLevel_mV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numQuartzFrequency_kHz)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numStrobeWidth_perc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,10 +403,16 @@ namespace SR_400
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numAccumTime;
+        private System.Windows.Forms.NumericUpDown numAccumTime_sec;
         private System.Windows.Forms.Label labStatus;
         private System.Windows.Forms.Button bInit;
         private System.Windows.Forms.TextBox tbPortName;
+        private System.Windows.Forms.NumericUpDown numDiscrLevel_mV;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numQuartzFrequency_kHz;
+        private System.Windows.Forms.Label lbStrobeWidth;
+        private System.Windows.Forms.NumericUpDown numStrobeWidth_perc;
+        private System.Windows.Forms.Label label4;
     }
 }
 

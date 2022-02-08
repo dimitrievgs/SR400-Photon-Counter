@@ -22,9 +22,10 @@ namespace SR_400
 
         public void InitDevice()
         {
-            sr400 = new SR400(tbPortName.Text);
-            numAccumTime.DecimalPlaces = SR400.TimeDecPlaces;
-            numAccumTime.Minimum = (decimal)Math.Pow(10, -SR400.TimeDecPlaces);
+            sr400 = new SR400(tbPortName.Text, (double)numDiscrLevel_mV.Value, (double)numQuartzFrequency_kHz.Value,
+                (double)numStrobeWidth_perc.Value);
+            numAccumTime_sec.DecimalPlaces = SR400.TimeDecPlaces;
+            numAccumTime_sec.Minimum = (decimal)Math.Pow(10, -SR400.TimeDecPlaces);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -43,7 +44,7 @@ namespace SR_400
                         labStatus.ForeColor = Color.Red;
                         labStatus.Text = "Reading";
                     });
-                    var result = sr400.Measure((double)numAccumTime.Value);
+                    var result = sr400.Measure((double)numAccumTime_sec.Value);
                     this.Invoke((MethodInvoker)delegate ()
                     {
                         numCh1.Value = (decimal)result.Ch1;
