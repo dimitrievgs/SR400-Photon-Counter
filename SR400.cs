@@ -17,6 +17,9 @@ namespace SR_400
 {
     public class SR400 : ComPort
     {
+        private const int _frontPanelValuesDecPlaces = 3;
+        private readonly string _frontPanelValuesFormat = "E" + _frontPanelValuesDecPlaces;
+
         /// <summary>
         /// Discriminator SR400: discrimination level in volts 
         /// </summary>
@@ -38,10 +41,11 @@ namespace SR_400
 
         /// <summary>
         /// Without DtrEnable it can't read.
+        /// Set baud rate 19200 at front panel before RS232-communication
         /// </summary>
         /// <param name="pName"></param>
         public SR400(string pName, double discrLevel_mV, double quartzFrequency_kHz, double strobeWidth_perc) :
-            base(null, null, pName, 9600, System.IO.Ports.Parity.None,
+            base(null, null, pName, 19200, System.IO.Ports.Parity.None,
                 8, System.IO.Ports.StopBits.Two, System.IO.Ports.Handshake.None,
                 2000, 2000, 0, false, true)
         {
@@ -195,13 +199,12 @@ namespace SR_400
         private bool StartCountingAndWait(double accumTimeSec)
         {
             SetCounterPreSet(2, accumTimeSec * 10000000.0);
-            //var result = ReadCounterPreSet(2);
             ResetCounter();
-            StartCount();
-            Thread.Sleep((int)(accumTimeSec * 1000.0));
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             int dataReadyStatusBit = 0;
+            StartCount();
+            Thread.Sleep((int)(accumTimeSec * 1000.0 - 0.0)); //accumTimeSec * 1000.0
             while ((dataReadyStatusBit = ReadSpecificPrimaryStatusBit(1).PrimaryStatusBit) != 1
                 && stopwatch.Elapsed.TotalMilliseconds <= ReadTimeout) //check Data Ready
                 Thread.Sleep(5);
@@ -1231,7 +1234,7 @@ namespace SR_400
 
         private string ToScientific(double value)
         {
-            return value.ToString("E5", CultureInfo.InvariantCulture);
+            return value.ToString(_frontPanelValuesFormat, CultureInfo.InvariantCulture);
         }
 
         private const string _closingCharacters = "\r";
