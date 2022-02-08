@@ -29,7 +29,7 @@ namespace SR_400
         /// </summary>
         private void InitializeComponent()
         {
-            this.bSend = new System.Windows.Forms.Button();
+            this.butSend = new System.Windows.Forms.Button();
             this.tbCommand = new System.Windows.Forms.TextBox();
             this.bMeasure = new System.Windows.Forms.Button();
             this.numCh1 = new System.Windows.Forms.NumericUpDown();
@@ -41,7 +41,7 @@ namespace SR_400
             this.label2 = new System.Windows.Forms.Label();
             this.numAccumTime_sec = new System.Windows.Forms.NumericUpDown();
             this.labStatus = new System.Windows.Forms.Label();
-            this.bInit = new System.Windows.Forms.Button();
+            this.butInit = new System.Windows.Forms.Button();
             this.tbPortName = new System.Windows.Forms.TextBox();
             this.numDiscrLevel_mV = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@ namespace SR_400
             this.lbStrobeWidth = new System.Windows.Forms.Label();
             this.numStrobeWidth_perc = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.cbRead = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCh2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPol)).BeginInit();
@@ -58,15 +59,15 @@ namespace SR_400
             ((System.ComponentModel.ISupportInitialize)(this.numStrobeWidth_perc)).BeginInit();
             this.SuspendLayout();
             // 
-            // bSend
+            // butSend
             // 
-            this.bSend.Location = new System.Drawing.Point(12, 42);
-            this.bSend.Name = "bSend";
-            this.bSend.Size = new System.Drawing.Size(75, 23);
-            this.bSend.TabIndex = 0;
-            this.bSend.Text = "Send";
-            this.bSend.UseVisualStyleBackColor = true;
-            this.bSend.Click += new System.EventHandler(this.button1_Click);
+            this.butSend.Location = new System.Drawing.Point(12, 42);
+            this.butSend.Name = "butSend";
+            this.butSend.Size = new System.Drawing.Size(75, 23);
+            this.butSend.TabIndex = 0;
+            this.butSend.Text = "Send";
+            this.butSend.UseVisualStyleBackColor = true;
+            this.butSend.Click += new System.EventHandler(this.butSend_Click);
             // 
             // tbCommand
             // 
@@ -223,15 +224,15 @@ namespace SR_400
             this.labStatus.TabIndex = 4;
             this.labStatus.Text = "In";
             // 
-            // bInit
+            // butInit
             // 
-            this.bInit.Location = new System.Drawing.Point(12, 13);
-            this.bInit.Name = "bInit";
-            this.bInit.Size = new System.Drawing.Size(75, 23);
-            this.bInit.TabIndex = 0;
-            this.bInit.Text = "Init";
-            this.bInit.UseVisualStyleBackColor = true;
-            this.bInit.Click += new System.EventHandler(this.bInit_Click);
+            this.butInit.Location = new System.Drawing.Point(12, 13);
+            this.butInit.Name = "butInit";
+            this.butInit.Size = new System.Drawing.Size(75, 23);
+            this.butInit.TabIndex = 0;
+            this.butInit.Text = "Init";
+            this.butInit.UseVisualStyleBackColor = true;
+            this.butInit.Click += new System.EventHandler(this.bInit_Click);
             // 
             // tbPortName
             // 
@@ -352,11 +353,24 @@ namespace SR_400
             this.label4.TabIndex = 4;
             this.label4.Text = "Ch A/B strobe width, %";
             // 
+            // cbRead
+            // 
+            this.cbRead.AutoSize = true;
+            this.cbRead.Checked = true;
+            this.cbRead.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbRead.Location = new System.Drawing.Point(98, 46);
+            this.cbRead.Name = "cbRead";
+            this.cbRead.Size = new System.Drawing.Size(52, 17);
+            this.cbRead.TabIndex = 5;
+            this.cbRead.Text = "Read";
+            this.cbRead.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(280, 307);
+            this.Controls.Add(this.cbRead);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbStrobeWidth);
             this.Controls.Add(this.label3);
@@ -375,10 +389,10 @@ namespace SR_400
             this.Controls.Add(this.tbCommand);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.bMeasure);
-            this.Controls.Add(this.bInit);
-            this.Controls.Add(this.bSend);
+            this.Controls.Add(this.butInit);
+            this.Controls.Add(this.butSend);
             this.Name = "Form1";
-            this.Text = "SR-400";
+            this.Text = "SR400";
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCh2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPol)).EndInit();
@@ -393,7 +407,7 @@ namespace SR_400
 
         #endregion
 
-        private System.Windows.Forms.Button bSend;
+        private System.Windows.Forms.Button butSend;
         private System.Windows.Forms.TextBox tbCommand;
         private System.Windows.Forms.Button bMeasure;
         private System.Windows.Forms.NumericUpDown numCh1;
@@ -405,7 +419,7 @@ namespace SR_400
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numAccumTime_sec;
         private System.Windows.Forms.Label labStatus;
-        private System.Windows.Forms.Button bInit;
+        private System.Windows.Forms.Button butInit;
         private System.Windows.Forms.TextBox tbPortName;
         private System.Windows.Forms.NumericUpDown numDiscrLevel_mV;
         private System.Windows.Forms.Label label3;
@@ -413,6 +427,7 @@ namespace SR_400
         private System.Windows.Forms.Label lbStrobeWidth;
         private System.Windows.Forms.NumericUpDown numStrobeWidth_perc;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox cbRead;
     }
 }
 

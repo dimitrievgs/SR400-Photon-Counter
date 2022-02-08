@@ -22,15 +22,23 @@ namespace SR_400
 
         public void InitDevice()
         {
+            butInit.ForeColor = Color.Black;
             sr400 = new SR400(tbPortName.Text, (double)numDiscrLevel_mV.Value, (double)numQuartzFrequency_kHz.Value,
                 (double)numStrobeWidth_perc.Value);
             numAccumTime_sec.DecimalPlaces = SR400.TimeDecPlaces;
             numAccumTime_sec.Minimum = (decimal)Math.Pow(10, -SR400.TimeDecPlaces);
+            butInit.ForeColor = Color.Blue;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void butSend_Click(object sender, EventArgs e)
         {
-            Task.Run(() => textBox1.Invoke((MethodInvoker)(() => textBox1.Text = sr400.SendCommandsOC(tbCommand.Text).Item2)));
+            if (sr400 != null && tbCommand.Text.Length > 0)
+            {
+                Task.Run(() =>
+                {
+                    textBox1.Invoke((MethodInvoker)(() => textBox1.Text = sr400.SendCommandsOC(tbCommand.Text, cbRead.Checked).Item2));
+                });
+            }
         }
 
         private void bMeasure_Click(object sender, EventArgs e)

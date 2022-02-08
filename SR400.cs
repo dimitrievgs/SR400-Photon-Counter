@@ -1164,17 +1164,13 @@ namespace SR_400
         //==============================================
 
         //p. 50
-        public (bool Success, string Response) SendCommandsOC(string Command)
+        public (bool Success, string Response) SendCommandsOC(string command, bool read)
         {
             (bool success, string response) result = (false, "");
             WaitForAccess();
             if (OpenConnection())
             {
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
-                result = SendCommandRaw(Command, Command.Contains(','));
-                stopwatch.Stop();
-                result.response += " || " + stopwatch.Elapsed.TotalMilliseconds;
+                result = SendCommandRaw(command, read);
                 CloseConnection();
             }
             OpenAccess();
