@@ -22,7 +22,7 @@ namespace SR_400
 
         public void InitDevice()
         {
-            sr400 = new SR400("COM3");
+            sr400 = new SR400(tbPortName.Text);
             numAccumTime.DecimalPlaces = SR400.TimeDecPlaces;
             numAccumTime.Minimum = (decimal)Math.Pow(10, -SR400.TimeDecPlaces);
         }

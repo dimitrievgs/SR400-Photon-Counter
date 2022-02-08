@@ -41,6 +41,8 @@ namespace SR_400
             this.label2 = new System.Windows.Forms.Label();
             this.numAccumTime = new System.Windows.Forms.NumericUpDown();
             this.labStatus = new System.Windows.Forms.Label();
+            this.bInit = new System.Windows.Forms.Button();
+            this.tbPortName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCh2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPol)).BeginInit();
@@ -212,6 +214,24 @@ namespace SR_400
             this.labStatus.TabIndex = 4;
             this.labStatus.Text = "In";
             // 
+            // bInit
+            // 
+            this.bInit.Location = new System.Drawing.Point(62, 32);
+            this.bInit.Name = "bInit";
+            this.bInit.Size = new System.Drawing.Size(75, 23);
+            this.bInit.TabIndex = 0;
+            this.bInit.Text = "Init";
+            this.bInit.UseVisualStyleBackColor = true;
+            this.bInit.Click += new System.EventHandler(this.bInit_Click);
+            // 
+            // tbPortName
+            // 
+            this.tbPortName.Location = new System.Drawing.Point(148, 33);
+            this.tbPortName.Name = "tbPortName";
+            this.tbPortName.Size = new System.Drawing.Size(57, 20);
+            this.tbPortName.TabIndex = 2;
+            this.tbPortName.Text = "COM3";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,9 +245,11 @@ namespace SR_400
             this.Controls.Add(this.numCh2);
             this.Controls.Add(this.numAccumTime);
             this.Controls.Add(this.numCh1);
+            this.Controls.Add(this.tbPortName);
             this.Controls.Add(this.tbCommand);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.bMeasure);
+            this.Controls.Add(this.bInit);
             this.Controls.Add(this.bSend);
             this.Name = "Form1";
             this.Text = "SR-400";
@@ -254,6 +276,8 @@ namespace SR_400
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numAccumTime;
         private System.Windows.Forms.Label labStatus;
+        private System.Windows.Forms.Button bInit;
+        private System.Windows.Forms.TextBox tbPortName;
     }
 }
 

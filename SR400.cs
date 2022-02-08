@@ -20,7 +20,7 @@ namespace SR_400
         /// <summary>
         /// Discriminator SR400: discrimination level in volts 
         /// </summary>
-        private static double _discriminatorLevel = -12e-3;
+        private static double _discriminatorLevel = 0.087; //-12e-3;
 
         //==============================================
         // Initialization
