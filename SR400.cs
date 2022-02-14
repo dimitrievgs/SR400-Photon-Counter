@@ -17,23 +17,23 @@ namespace SR_400
 {
     public class SR400 : ComPort
     {
-        private const int _frontPanelValuesDecPlaces = 3;
-        private readonly string _frontPanelValuesFormat = "E" + _frontPanelValuesDecPlaces;
+        private const int frontPanelValuesDecPlaces = 3;
+        private readonly string frontPanelValuesFormat = "E" + frontPanelValuesDecPlaces;
 
         /// <summary>
         /// Discriminator SR400: discrimination level in volts 
         /// </summary>
-        private double _discriminatorLevelV; //-12e-3;
-        private double _quartzFrequency_kHz;
-        private double _quartzPeriod_us;
+        private double discriminatorLevelV; //-12e-3;
+        private double quartzFrequency_kHz;
+        private double quartzPeriod_us;
         /// <summary>
         /// Gate width window
         /// </summary>
-        private double _strobeWidth_us;
+        private double strobeWidth_us;
         /// <summary>
         /// Shift of Ch1 and Ch2 counting as a whole
         /// </summary>
-        private double _phaseWidth_us = 0d;
+        private double phaseWidth_us = 0d;
 
         //==============================================
         // Initialization
@@ -52,11 +52,11 @@ namespace SR_400
             // 'SETUP COM1: PORT TO 9600 BAUD, NO PARITY, 8 DATA BITS, 2 STOP BITS,
             // 'IGNORE CTS (CLEAR TO SEND), DSR (DATA SET READY),
             // 'AND CD (CARRIER DETECT)
-            _discriminatorLevelV = discrLevel_mV / 1_000.0;
-            _quartzFrequency_kHz = quartzFrequency_kHz;
-            _quartzPeriod_us = 1d / 1_000d / _quartzFrequency_kHz;
-            _strobeWidth_us = _quartzPeriod_us * strobeWidth_perc / 100d;
-            _phaseWidth_us = _quartzPeriod_us * phaseWidth_perc / 100d;
+            discriminatorLevelV = discrLevel_mV / 1_000.0;
+            this.quartzFrequency_kHz = quartzFrequency_kHz;
+            quartzPeriod_us = 1d / 1_000d / this.quartzFrequency_kHz;
+            strobeWidth_us = quartzPeriod_us * strobeWidth_perc / 100d;
+            phaseWidth_us = quartzPeriod_us * phaseWidth_perc / 100d;
             Initialize();
         }
 
@@ -125,19 +125,19 @@ namespace SR_400
             //SetCounterPreSet(2, accumTime * 10000000.0); 
             //"for chanell A setup";
             SetCounterInput(0, 1);
-            SetGateDelay(0, 0d + _phaseWidth_us); //default is 0
+            SetGateDelay(0, 0d + phaseWidth_us); //default is 0
             SetGateMode(0, 1); //When there is a normal signal for the Gate, it will need to be specified 
-            SetGateWidth(0, _strobeWidth_us); //4E-6
+            SetGateWidth(0, strobeWidth_us); //4E-6
             SetDiscriminatorSlope(0, 1); //fall
-            SetDiscriminatorLevel(0, _discriminatorLevelV);
+            SetDiscriminatorLevel(0, discriminatorLevelV);
             // GateWidth A = 4E-6 sec
             //"for chanell B setup";
             SetCounterInput(1, 1);
-            SetGateDelay(1, _quartzPeriod_us / 2d + _phaseWidth_us); //default is 0 //1, 12E-6
+            SetGateDelay(1, quartzPeriod_us / 2d + phaseWidth_us); //default is 0 //1, 12E-6
             SetGateMode(1, 1); //When there is a normal signal for the Gate, it will need to be specified 
-            SetGateWidth(1, _strobeWidth_us); //4E-6
+            SetGateWidth(1, strobeWidth_us); //4E-6
             SetDiscriminatorSlope(1, 1); //fall
-            SetDiscriminatorLevel(1, _discriminatorLevelV);
+            SetDiscriminatorLevel(1, discriminatorLevelV);
             // GateWidth B = 4E-6 sec
             Thread.Sleep(2);
         }
@@ -1234,7 +1234,7 @@ namespace SR_400
 
         private string ToScientific(double value)
         {
-            return value.ToString(_frontPanelValuesFormat, CultureInfo.InvariantCulture);
+            return value.ToString(frontPanelValuesFormat, CultureInfo.InvariantCulture);
         }
 
         private const string _closingCharacters = "\r";
