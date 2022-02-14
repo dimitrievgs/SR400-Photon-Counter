@@ -48,8 +48,10 @@ namespace SR_400
             this.numQuartzFrequency_kHz = new System.Windows.Forms.NumericUpDown();
             this.lbStrobeWidth = new System.Windows.Forms.Label();
             this.numStrobeWidth_perc = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
             this.cbRead = new System.Windows.Forms.CheckBox();
+            this.numPhaseWidth_perc = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCh2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPol)).BeginInit();
@@ -57,6 +59,7 @@ namespace SR_400
             ((System.ComponentModel.ISupportInitialize)(this.numDiscrLevel_mV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numQuartzFrequency_kHz)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStrobeWidth_perc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPhaseWidth_perc)).BeginInit();
             this.SuspendLayout();
             // 
             // butSend
@@ -93,7 +96,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numCh1.Location = new System.Drawing.Point(12, 275);
+            this.numCh1.Location = new System.Drawing.Point(12, 294);
             this.numCh1.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -115,7 +118,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numCh2.Location = new System.Drawing.Point(98, 275);
+            this.numCh2.Location = new System.Drawing.Point(98, 294);
             this.numCh2.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -138,7 +141,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numPol.Location = new System.Drawing.Point(185, 275);
+            this.numPol.Location = new System.Drawing.Point(185, 294);
             this.numPol.Maximum = new decimal(new int[] {
             999999999,
             0,
@@ -218,7 +221,7 @@ namespace SR_400
             // labStatus
             // 
             this.labStatus.AutoSize = true;
-            this.labStatus.Location = new System.Drawing.Point(11, 255);
+            this.labStatus.Location = new System.Drawing.Point(11, 277);
             this.labStatus.Name = "labStatus";
             this.labStatus.Size = new System.Drawing.Size(16, 13);
             this.labStatus.TabIndex = 4;
@@ -275,9 +278,9 @@ namespace SR_400
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(95, 168);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 13);
+            this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Signal discr level, mV";
+            this.label3.Text = "Signal discr lvl, mV";
             // 
             // numQuartzFrequency_kHz
             // 
@@ -287,7 +290,7 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numQuartzFrequency_kHz.Location = new System.Drawing.Point(12, 226);
+            this.numQuartzFrequency_kHz.Location = new System.Drawing.Point(12, 245);
             this.numQuartzFrequency_kHz.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -310,7 +313,7 @@ namespace SR_400
             // lbStrobeWidth
             // 
             this.lbStrobeWidth.AutoSize = true;
-            this.lbStrobeWidth.Location = new System.Drawing.Point(9, 210);
+            this.lbStrobeWidth.Location = new System.Drawing.Point(9, 216);
             this.lbStrobeWidth.Name = "lbStrobeWidth";
             this.lbStrobeWidth.Size = new System.Drawing.Size(84, 13);
             this.lbStrobeWidth.TabIndex = 4;
@@ -324,9 +327,9 @@ namespace SR_400
             0,
             0,
             131072});
-            this.numStrobeWidth_perc.Location = new System.Drawing.Point(98, 226);
+            this.numStrobeWidth_perc.Location = new System.Drawing.Point(98, 245);
             this.numStrobeWidth_perc.Maximum = new decimal(new int[] {
-            50,
+            90,
             0,
             0,
             0});
@@ -344,15 +347,6 @@ namespace SR_400
             0,
             196608});
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(95, 210);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Ch A/B strobe width, %";
-            // 
             // cbRead
             // 
             this.cbRead.AutoSize = true;
@@ -365,13 +359,60 @@ namespace SR_400
             this.cbRead.Text = "Read";
             this.cbRead.UseVisualStyleBackColor = true;
             // 
+            // numPhaseWidth_perc
+            // 
+            this.numPhaseWidth_perc.DecimalPlaces = 3;
+            this.numPhaseWidth_perc.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numPhaseWidth_perc.Location = new System.Drawing.Point(185, 245);
+            this.numPhaseWidth_perc.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.numPhaseWidth_perc.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numPhaseWidth_perc.Name = "numPhaseWidth_perc";
+            this.numPhaseWidth_perc.Size = new System.Drawing.Size(74, 20);
+            this.numPhaseWidth_perc.TabIndex = 3;
+            this.numPhaseWidth_perc.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(183, 216);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(82, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Phase Width, %";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Location = new System.Drawing.Point(98, 212);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(75, 37);
+            this.richTextBox1.TabIndex = 6;
+            this.richTextBox1.Text = "Ch A/B strobe width, %";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 307);
+            this.ClientSize = new System.Drawing.Size(280, 327);
             this.Controls.Add(this.cbRead);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.lbStrobeWidth);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -380,6 +421,7 @@ namespace SR_400
             this.Controls.Add(this.lbResult);
             this.Controls.Add(this.numPol);
             this.Controls.Add(this.numCh2);
+            this.Controls.Add(this.numPhaseWidth_perc);
             this.Controls.Add(this.numStrobeWidth_perc);
             this.Controls.Add(this.numQuartzFrequency_kHz);
             this.Controls.Add(this.numDiscrLevel_mV);
@@ -391,6 +433,7 @@ namespace SR_400
             this.Controls.Add(this.bMeasure);
             this.Controls.Add(this.butInit);
             this.Controls.Add(this.butSend);
+            this.Controls.Add(this.richTextBox1);
             this.Name = "Form1";
             this.Text = "SR400";
             ((System.ComponentModel.ISupportInitialize)(this.numCh1)).EndInit();
@@ -400,6 +443,7 @@ namespace SR_400
             ((System.ComponentModel.ISupportInitialize)(this.numDiscrLevel_mV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numQuartzFrequency_kHz)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStrobeWidth_perc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPhaseWidth_perc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -426,8 +470,10 @@ namespace SR_400
         private System.Windows.Forms.NumericUpDown numQuartzFrequency_kHz;
         private System.Windows.Forms.Label lbStrobeWidth;
         private System.Windows.Forms.NumericUpDown numStrobeWidth_perc;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox cbRead;
+        private System.Windows.Forms.NumericUpDown numPhaseWidth_perc;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

@@ -44,7 +44,7 @@ namespace SR_400
         /// Set baud rate 19200 at front panel before RS232-communication
         /// </summary>
         /// <param name="pName"></param>
-        public SR400(string pName, double discrLevel_mV, double quartzFrequency_kHz, double strobeWidth_perc) :
+        public SR400(string pName, double discrLevel_mV, double quartzFrequency_kHz, double strobeWidth_perc, double phaseWidth_perc) :
             base(null, null, pName, 19200, System.IO.Ports.Parity.None,
                 8, System.IO.Ports.StopBits.Two, System.IO.Ports.Handshake.None,
                 2000, 2000, 0, false, true)
@@ -56,7 +56,7 @@ namespace SR_400
             _quartzFrequency_kHz = quartzFrequency_kHz;
             _quartzPeriod_us = 1d / 1_000d / _quartzFrequency_kHz;
             _strobeWidth_us = _quartzPeriod_us * strobeWidth_perc / 100d;
-            _phaseWidth_us = 0d;
+            _phaseWidth_us = _quartzPeriod_us * phaseWidth_perc / 100d;
             Initialize();
         }
 

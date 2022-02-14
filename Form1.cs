@@ -24,7 +24,7 @@ namespace SR_400
         {
             butInit.ForeColor = Color.Black;
             sr400 = new SR400(tbPortName.Text, (double)numDiscrLevel_mV.Value, (double)numQuartzFrequency_kHz.Value,
-                (double)numStrobeWidth_perc.Value);
+                (double)numStrobeWidth_perc.Value, (double)numPhaseWidth_perc.Value);
             numAccumTime_sec.DecimalPlaces = SR400.TimeDecPlaces;
             numAccumTime_sec.Minimum = (decimal)Math.Pow(10, -SR400.TimeDecPlaces);
             butInit.ForeColor = Color.Blue;
